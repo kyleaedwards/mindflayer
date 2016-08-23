@@ -1,6 +1,7 @@
 "use strict";
 
 const CONCURRENCY = process.env.WEB_CONCURRENCY || 1
+const PORT        = process.env.PORT || 5000
 
 const dicebot     = require('./dicebot')
 const express     = require('express')
@@ -27,11 +28,11 @@ cluster(function(worker) {
         res.render('index')
     })
 
-    app.listen(8888, function (error) {
+    app.listen(PORT, function (error) {
         if (error) {
             console.error(error)
         } else {
-            console.info("==> Listening on port 8888.")
+            console.info(`==> Listening on port ${PORT}.`)
         }
     })
 
