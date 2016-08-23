@@ -1,0 +1,219 @@
+html, body {
+    background: rgba(40,206,137,1);
+    background: -moz-linear-gradient(-45deg, rgba(40,206,137,1) 0%, rgba(42,196,196,1) 100%);
+    background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(40,206,137,1)), color-stop(100%, rgba(42,196,196,1)));
+    background: -webkit-linear-gradient(-45deg, rgba(40,206,137,1) 0%, rgba(42,196,196,1) 100%);
+    background: -o-linear-gradient(-45deg, rgba(40,206,137,1) 0%, rgba(42,196,196,1) 100%);
+    background: -ms-linear-gradient(-45deg, rgba(40,206,137,1) 0%, rgba(42,196,196,1) 100%);
+    background: linear-gradient(135deg, rgba(40,206,137,1) 0%, rgba(42,196,196,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#28ce89', endColorstr='#2ac4c4', GradientType=1 );
+    font-family: 'Helvetica Neue', Helvetica, sans-serif;
+}
+
+body {
+    margin: 0;
+}
+
+hgroup {
+    padding: 15px 0;
+    background-color: rgba(255, 255, 255, 0.25);
+    margin-bottom: 25px;
+}
+
+h1 {
+    color: #ffffff;
+    font-size: 36px;
+    background: url('../img/d20.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    text-align: left;
+    padding-left: 50px;
+    width: 232px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+#intro {
+    position: absolute;
+    top: 80px;
+    left: 0;
+}
+
+#intro > div {
+    font-size: 50px;
+    font-weight: 100;
+    width: 100vw;
+    text-align: center;
+    height: calc(100vh - 110px);
+    display: table-cell;
+    vertical-align: middle;
+    padding: 0 20%;
+    color: #fff;
+    opacity: 0.8;
+    transition: opacity 1s;
+}
+
+#intro.hidden > div {
+    opacity: 0;
+}
+
+#diceroll {
+    color: #ffffff;
+    color: rgba(255, 255, 255, 0.66);
+    font-size: 67px;
+    font-weight: 100;
+    text-align: right;
+    position: absolute;
+    right: 45px;
+}
+
+#results {
+    display: flex;
+    width: 50%;
+    margin: auto;
+}
+
+#results > div {
+    flex-grow: 1;
+    text-align: center;
+    font-size: 48px;
+    color: #ffffff;
+    color: rgba(255, 255, 255, 0.66);
+    position: relative;
+}
+
+#results > div:after {
+    content: '+';
+    position: absolute;
+    right: -30px;
+    width: 60px;
+    text-align: center;
+    font-weight: 100;
+    font-size: 36px;
+    line-height: 57px;
+}
+
+#results > div:last-of-type:after {
+    display: none;
+}
+
+#result {
+    text-align: center;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 120px;
+    font-size: calc(75vh - 200px);
+}
+
+#lastRolls {
+    color: #ffffff;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 130px;
+    display: none;
+    overflow: hidden;
+}
+
+#lastRolls h2 {
+    margin: 0;
+    font-size: 16px;
+    padding: 0 12px;
+    color: rgba(255, 255, 255, 0.66);
+}
+
+#lastRolls ul {
+    margin: 0;
+    padding: 0;
+    height: 120px;
+}
+
+#lastRolls ul li {
+    list-style: none;
+    display: inline-block;
+    width: 20%;
+    text-align: center;
+    line-height: 120px;
+    font-weight: bold;
+    font-size: 30px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+#lastRolls ul li:nth-child(1) {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+#lastRolls ul li:nth-child(2) {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+#lastRolls ul li:nth-child(3) {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+#lastRolls ul li:nth-child(4) {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+#lastRolls ul li:nth-child(5) {
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+@media (max-width: 878px) {
+
+    #lastRolls ul li {
+        width: 33%;
+    }
+
+    #lastRolls ul li:nth-child(2) {
+        width: 34%;
+    }
+
+    #lastRolls ul li:nth-child(4) {
+        display: none;
+    }
+
+    #lastRolls ul li:nth-child(5) {
+        display: none;
+    }
+
+    #diceroll {
+        font-size: 40px;
+        right: 30px;
+    }
+
+    #results > div:after {
+        font-size: 24px;
+        line-height: 36px;
+    }
+
+    #results > div {
+        font-size: 32px;
+    }
+
+}
+
+@media (max-width: 575px) {
+
+    #results {
+        display: none;
+    }
+
+    #intro > div {
+        font-size: 32px;
+    }
+
+    #lastRolls ul li {
+        width: 50%;
+    }
+
+    #lastRolls ul li:nth-child(2) {
+        width: 50%;
+    }
+
+    #lastRolls ul li:nth-child(3) {
+        display: none;
+    }
+
+}
