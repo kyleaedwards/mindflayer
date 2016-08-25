@@ -15,6 +15,16 @@ cluster(function(worker) {
     app.set('views', path.join(__dirname, '..', 'client'))
     app.set('view engine', 'pug')
 
+    app.use(function(req, res, next) {
+        let schema = req.headers['x-forwarded-proto']
+        console.log(schema)
+        if (schema === 'https' || !schema) {
+            next()
+        } else {
+            res.redirect('https://' + req.headers.host + req.url)
+        }
+    })
+
     app.use('/css', express.static(path.join(__dirname, '..', 'client', 'css')))
     app.use('/js', express.static(path.join(__dirname, '..', 'client', 'js')))
     app.use('/img', express.static(path.join(__dirname, '..', 'client', 'img')))
