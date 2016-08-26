@@ -17,7 +17,6 @@ cluster(function(worker) {
 
     app.use(function(req, res, next) {
         let schema = req.headers['x-forwarded-proto']
-        console.log(schema)
         if (schema === 'https' || !schema) {
             next()
         } else {

@@ -14,8 +14,11 @@ class Dicebot {
             4: 'four',
             5: 'five',
             6: 'six',
+            7: 'seven',
             8: 'eight',
+            9: 'nine',
             10: 'ten',
+            11: 'eleven',
             12: 'twelve',
             16: 'sixteen',
             20: 'twenty',
@@ -24,13 +27,29 @@ class Dicebot {
 
         var nums = [2, 3, 4, 6, 8, 10, 12, 16, 20, 100]
 
+        classifier.addDocument("roll 4 initiative", "initiative")
+        classifier.addDocument("roll for initiative", "initiative")
+        classifier.addDocument("roll initiative", "initiative")
+
         nums.forEach((n) => {
             var cat = "d" + n
             classifier.addDocument("roll a d" + n, cat)
             classifier.addDocument("roll a d " + textNumeral[n], cat)
             classifier.addDocument("roll an " + n + " sided die", cat)
             classifier.addDocument("roll an " + textNumeral[n] + " sided die", cat)
-            for (var i = 2; i <= 6; i++) {
+            for (var i = 2; i <= 12; i++) {
+                if (i == 2) {
+                    classifier.addDocument("roll to d" + n, cat)
+                    classifier.addDocument("roll to d " + textNumeral[n], cat)
+                    classifier.addDocument("roll to " + n + " sided dice", cat)
+                    classifier.addDocument("roll to " + textNumeral[n] + " sided dice", cat)
+                }
+                if (i == 4) {
+                    classifier.addDocument("roll for d" + n, cat)
+                    classifier.addDocument("roll for d " + textNumeral[n], cat)
+                    classifier.addDocument("roll for " + n + " sided dice", cat)
+                    classifier.addDocument("roll for " + textNumeral[n] + " sided dice", cat)
+                }
                 classifier.addDocument("roll " + i + " d" + n, cat)
                 classifier.addDocument("roll " + i + " d " + textNumeral[n], cat)
                 classifier.addDocument("roll " + textNumeral[i] + " d" + n, cat)
@@ -57,14 +76,11 @@ class Dicebot {
             diceroll = classifier.classify(phrase),
             results = classifier.getClassifications(phrase),
             maxroll = parseInt(diceroll.slice(1)),
+            total = results.reduce((prev, curr) => prev + curr.value, 0),
             iterations = 0,
+            isInitiative = false,
             output = {},
-            value,
-            total
-
-        total = results.reduce((prev, curr) => {
-            return prev + curr.value
-        }, 0)
+            value
 
         if (results[0].value / total < minConfidence) {
             output.fail = true
@@ -72,7 +88,17 @@ class Dicebot {
             return output
         }
 
+        if (diceroll === 'initiative') {
+            isInitiative = true
+            diceroll = 'd20'
+            maxroll = 20
+        }
+
         output.diceroll = diceroll
+
+        if (diceroll === 'repeat') {
+            return output
+        }
 
         phrase = phrase.replace(/[0-9]+([\s-]+)?sided?/, '')
         phrase = phrase.replace(/\sd(e+)?([\s-]+)?[0-9]+/, '')
@@ -83,7 +109,7 @@ class Dicebot {
             }
         })
 
-        if (!iterations) {
+        if (!iterations || isInitiative) {
             iterations = 1
         }
 
@@ -100,8 +126,6 @@ class Dicebot {
             output.result += value
             output.results.push(value)
         }
-
-        //output.debug = results
 
         return output
 

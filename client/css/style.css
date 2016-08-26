@@ -1,4 +1,8 @@
 html, body {
+  height: 100%;
+}
+
+body {
     background: rgba(40,206,137,1);
     background: -moz-linear-gradient(-45deg, rgba(40,206,137,1) 0%, rgba(42,196,196,1) 100%);
     background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(40,206,137,1)), color-stop(100%, rgba(42,196,196,1)));
@@ -7,20 +11,17 @@ html, body {
     background: -ms-linear-gradient(-45deg, rgba(40,206,137,1) 0%, rgba(42,196,196,1) 100%);
     background: linear-gradient(135deg, rgba(40,206,137,1) 0%, rgba(42,196,196,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#28ce89', endColorstr='#2ac4c4', GradientType=1 );
-    font-family: 'Helvetica Neue', Helvetica, sans-serif;
-}
-
-body {
+    font-family: 'Lato', 'Helvetica Neue', Helvetica, sans-serif;
     margin: 0;
 }
 
-hgroup {
+#topbar {
     padding: 15px 0;
     background-color: rgba(255, 255, 255, 0.25);
     margin-bottom: 25px;
 }
 
-h1 {
+#logo {
     color: #ffffff;
     font-size: 36px;
     background: url('../img/d20.png');
@@ -28,19 +29,34 @@ h1 {
     background-repeat: no-repeat;
     text-align: left;
     padding-left: 50px;
-    width: 232px;
+    position: relative;
+    width: 225px;
     margin: 0 auto;
     box-sizing: border-box;
     overflow: hidden;
+}
+
+#cube {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: url('../img/d20_active.png');
+    background-size: contain;
+    width: 44px;
+    height: 44px;
+    z-index: 2;
+    content: ' ';
+    opacity: 0;
 }
 
 #intro {
     position: absolute;
     top: 80px;
     left: 0;
+    transition: opacity 1s;
 }
 
-#intro > div {
+#introText {
     font-size: 50px;
     font-weight: 100;
     width: 100vw;
@@ -54,7 +70,7 @@ h1 {
     transition: opacity 1s;
 }
 
-#intro.hidden > div {
+#intro.hidden {
     opacity: 0;
 }
 
@@ -74,7 +90,7 @@ h1 {
     margin: auto;
 }
 
-#results > div {
+.result {
     flex-grow: 1;
     text-align: center;
     font-size: 48px;
@@ -83,7 +99,7 @@ h1 {
     position: relative;
 }
 
-#results > div:after {
+.result:after {
     content: '+';
     position: absolute;
     right: -30px;
@@ -94,7 +110,7 @@ h1 {
     line-height: 57px;
 }
 
-#results > div:last-of-type:after {
+.result:last-of-type:after {
     display: none;
 }
 
@@ -106,30 +122,30 @@ h1 {
     font-size: calc(75vh - 200px);
 }
 
-#lastRolls {
+#bottomBar {
     color: #ffffff;
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 130px;
+    height: 140px;
     display: none;
     overflow: hidden;
 }
 
-#lastRolls h2 {
+#lastRollLabel {
     margin: 0;
     font-size: 16px;
     padding: 0 12px;
     color: rgba(255, 255, 255, 0.66);
 }
 
-#lastRolls ul {
-    margin: 0;
+#lastRolls {
+    margin: 10px 0px;
     padding: 0;
     height: 120px;
 }
 
-#lastRolls ul li {
+.roll {
     list-style: none;
     display: inline-block;
     width: 20%;
@@ -140,41 +156,57 @@ h1 {
     color: rgba(255, 255, 255, 0.8);
 }
 
-#lastRolls ul li:nth-child(1) {
+.roll:nth-child(1) {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-#lastRolls ul li:nth-child(2) {
+.roll:nth-child(2) {
     background-color: rgba(255, 255, 255, 0.3);
 }
 
-#lastRolls ul li:nth-child(3) {
+.roll:nth-child(3) {
     background-color: rgba(255, 255, 255, 0.4);
 }
 
-#lastRolls ul li:nth-child(4) {
+.roll:nth-child(4) {
     background-color: rgba(255, 255, 255, 0.5);
 }
 
-#lastRolls ul li:nth-child(5) {
+.roll:nth-child(5) {
     background-color: rgba(255, 255, 255, 0.6);
+}
+
+#flash {
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,ffffff+100&1+0,0+100 */
+  background: -moz-radial-gradient(center, ellipse cover, rgba(255,127,127,1) 0%, rgba(255,127,127,0) 50%); /* FF3.6-15 */
+  background: -webkit-radial-gradient(center, ellipse cover, rgba(255,127,127,1) 0%,rgba(255,127,127,0) 50%); /* Chrome10-25,Safari5.1-6 */
+  background: radial-gradient(ellipse at center, rgba(255,127,127,1) 0%,rgba(255,127,127,0) 50%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff0000', endColorstr='#00ff0000',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+  border-radius: 50%;
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  top: 22px;
+  left: 22px;
+  opacity: 0.5;
+  transition: all 0.1s;
 }
 
 @media (max-width: 878px) {
 
-    #lastRolls ul li {
+    .roll {
         width: 33%;
     }
 
-    #lastRolls ul li:nth-child(2) {
+    .roll:nth-child(2) {
         width: 34%;
     }
 
-    #lastRolls ul li:nth-child(4) {
+    .roll:nth-child(4) {
         display: none;
     }
 
-    #lastRolls ul li:nth-child(5) {
+    .roll:nth-child(5) {
         display: none;
     }
 
@@ -183,13 +215,13 @@ h1 {
         right: 30px;
     }
 
-    #results > div:after {
-        font-size: 24px;
-        line-height: 36px;
+    .result {
+        font-size: 32px;
     }
 
-    #results > div {
-        font-size: 32px;
+    .result:after {
+        font-size: 24px;
+        line-height: 36px;
     }
 
 }
@@ -200,19 +232,19 @@ h1 {
         display: none;
     }
 
-    #intro > div {
+    #introText {
         font-size: 32px;
     }
 
-    #lastRolls ul li {
+    .roll {
         width: 50%;
     }
 
-    #lastRolls ul li:nth-child(2) {
+    .roll:nth-child(2) {
         width: 50%;
     }
 
-    #lastRolls ul li:nth-child(3) {
+    .roll:nth-child(3) {
         display: none;
     }
 
