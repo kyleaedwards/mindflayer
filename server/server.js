@@ -1,7 +1,7 @@
 "use strict";
 
 const CONCURRENCY = process.env.WEB_CONCURRENCY || 1
-const PORT        = process.env.PORT || 5000
+const PORT        = process.env.PORT || 8080
 
 const dicebot     = require('./dicebot')
 const express     = require('express')
