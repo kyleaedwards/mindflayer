@@ -1,9 +1,9 @@
+(function () {
+
 function d(el, l) { el.style.display = l }
 function c(tag) { return document.createElement(tag) }
 function _(id) { return _.cache[id] ? _.cache[id] : (_.cache[id] = document.getElementById(id)) }
 _.cache = {}
-
-(function () {
 
 var currentRoll,
     recognition
