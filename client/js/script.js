@@ -1,3 +1,8 @@
+function d(el, l) { el.style.display = l }
+function c(tag) { return document.createElement(tag) }
+function _(id) { return _.cache[id] ? _.cache[id] : (_.cache[id] = document.getElementById(id)) }
+_.cache = {}
+
 (function () {
 
 var currentRoll,
@@ -112,11 +117,6 @@ function counter(el, n) {
         }
     }, ~~(t * 1000 * step / n))
 }
-
-function d(el, l) { el.style.display = l }
-function c(tag) { return document.createElement(tag) }
-function _(id) { return _.cache[id] ? _.cache[id] : (_.cache[id] = document.getElementById(id)) }
-_.cache = {}
 
 var lastAvg = 0;
 
